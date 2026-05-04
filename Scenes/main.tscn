@@ -1,7 +1,66 @@
-[gd_scene load_steps=12 format=3 uid="uid://c38r0xl1yxggq"]
+[gd_scene load_steps=21 format=3 uid="uid://c38r0xl1yxggq"]
 
 [ext_resource type="Texture2D" uid="uid://cwg5gt3u45bho" path="res://Textures/sand.jpg" id="1_hnlie"]
 [ext_resource type="PackedScene" uid="uid://cusuren68wqpc" path="res://Objects/player.tscn" id="2_pqln0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wwqk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u71gv"]
+albedo_texture = ExtResource("1_hnlie")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ikq72"]
+material = SubResource("StandardMaterial3D_u71gv")
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sm64k"]
+
+[sub_resource type="Curve" id="Curve_jucye"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.95, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bjlqf"]
+curve = SubResource("Curve_jucye")
+
+[sub_resource type="Curve" id="Curve_r3tdk"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, -2.19781), 0.0, 0.0, 0, 0, Vector2(1, 2.19781), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xsbso"]
+curve = SubResource("Curve_r3tdk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uiro6"]
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector3(0, -0.1, 0)
+tangential_accel_min = 1.0
+tangential_accel_max = 1.0
+tangential_accel_curve = SubResource("CurveTexture_xsbso")
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_bjlqf")
+
+[sub_resource type="Gradient" id="Gradient_pvoqv"]
+offsets = PackedFloat32Array(0, 0.678571)
+colors = PackedColorArray(1, 1, 1, 0.431373, 0.295895, 0.295855, 0.295865, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xrqhj"]
+gradient = SubResource("Gradient_pvoqv")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nirrr"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_xrqhj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jao5m"]
+material = SubResource("StandardMaterial3D_nirrr")
+
+[sub_resource type="BoxMesh" id="BoxMesh_up72y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jao04"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eqim8"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -20,27 +79,9 @@ tonemap_mode = 2
 glow_enabled = true
 fog_light_color = Color(1.92523e-07, 0.276399, 0.306327, 1)
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.1
 volumetric_fog_albedo = Color(4.81307e-07, 0.772254, 0.725785, 1)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wwqk"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u71gv"]
-albedo_texture = ExtResource("1_hnlie")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ikq72"]
-material = SubResource("StandardMaterial3D_u71gv")
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sm64k"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_up72y"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_jao04"]
-
 [node name="Node3D" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_653cq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.702016, 0.571335, 0.425147, 0, -0.596981, 0.802255, 0.712161, -0.563196, -0.419091, 0, 2.87609, 0)
@@ -60,6 +101,15 @@ shape = SubResource("WorldBoundaryShape3D_sm64k")
 [node name="Player" parent="." instance=ExtResource("2_pqln0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23649, 0)
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1013, -0.0553005)
+gi_mode = 0
+amount = 1000
+lifetime = 10.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_uiro6")
+draw_pass_1 = SubResource("QuadMesh_jao5m")
+
 [node name="Test Wall" type="StaticBody3D" parent="."]
 transform = Transform3D(16.4882, 0, 0, 0, 13.0292, 0, 0, 0, 1, 0, 2.69946, -7.3873)
 
@@ -68,3 +118,6 @@ mesh = SubResource("BoxMesh_up72y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Test Wall"]
 shape = SubResource("BoxShape3D_jao04")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_653cq")

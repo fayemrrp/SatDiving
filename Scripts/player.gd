@@ -6,6 +6,8 @@ var sensitivity = 0.003
 var head_y_axis = 0.0
 var camera_x_axis = 0.0
 @onready var camera = $Head/Camera3D
+@onready var flashlight = $Head/Camera3D/Flashlight
+var flashlight_on = true
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -15,6 +17,16 @@ func _unhandled_input(event):
 		
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
+		
+	if Input.is_action_just_pressed("flashlight"):
+		if flashlight_on:
+			flashlight.light_energy = 0.0
+			flashlight_on = false
+		else:
+			flashlight.light_energy = 1.0
+			flashlight_on = true
+		
+	
 		
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

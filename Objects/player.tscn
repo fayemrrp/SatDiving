@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cusuren68wqpc"]
+[gd_scene load_steps=5 format=3 uid="uid://cusuren68wqpc"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_rvet1"]
 
@@ -9,6 +9,8 @@ height = 1.8
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s6n66"]
 radius = 0.4
 height = 1.8
+
+[sub_resource type="GDScript" id="GDScript_1kkbm"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_rvet1")
@@ -24,9 +26,10 @@ shape = SubResource("CapsuleShape3D_s6n66")
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.552065, 0)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/Camera3D"]
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
 transform = Transform3D(0.99632, 0, 0.0857125, 0, 1, 0, -0.0857125, 0, 0.99632, 0.601138, -0.552065, 0)
 light_color = Color(0.992753, 1, 0.809153, 1)
 light_volumetric_fog_energy = 3.0
 spot_range = 20.0
 spot_angle = 20.0
+script = SubResource("GDScript_1kkbm")
