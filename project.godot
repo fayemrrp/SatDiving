@@ -45,4 +45,8 @@ jump={
 
 [physics]
 
-3d/default_gravity=4.9
+3d/default_gravity=2.0
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(9.40054e-10, 0.00212592, 0.00497175, 1)

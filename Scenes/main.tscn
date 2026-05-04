@@ -1,7 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://c38r0xl1yxggq"]
+[gd_scene load_steps=12 format=3 uid="uid://c38r0xl1yxggq"]
 
 [ext_resource type="Texture2D" uid="uid://cwg5gt3u45bho" path="res://Textures/sand.jpg" id="1_hnlie"]
 [ext_resource type="PackedScene" uid="uid://cusuren68wqpc" path="res://Objects/player.tscn" id="2_pqln0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eqim8"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.5, 0.5, 0.5, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="Sky" id="Sky_fplhp"]
+sky_material = SubResource("ProceduralSkyMaterial_eqim8")
+
+[sub_resource type="Environment" id="Environment_653cq"]
+background_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_fplhp")
+tonemap_mode = 2
+glow_enabled = true
+fog_light_color = Color(1.92523e-07, 0.276399, 0.306327, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.1
+volumetric_fog_albedo = Color(4.81307e-07, 0.772254, 0.725785, 1)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wwqk"]
 
@@ -13,10 +33,18 @@ material = SubResource("StandardMaterial3D_u71gv")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sm64k"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_up72y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jao04"]
+
 [node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_653cq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.702016, 0.571335, 0.425147, 0, -0.596981, 0.802255, 0.712161, -0.563196, -0.419091, 0, 2.87609, 0)
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
@@ -31,3 +59,12 @@ shape = SubResource("WorldBoundaryShape3D_sm64k")
 
 [node name="Player" parent="." instance=ExtResource("2_pqln0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23649, 0)
+
+[node name="Test Wall" type="StaticBody3D" parent="."]
+transform = Transform3D(16.4882, 0, 0, 0, 13.0292, 0, 0, 0, 1, 0, 2.69946, -7.3873)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Test Wall"]
+mesh = SubResource("BoxMesh_up72y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test Wall"]
+shape = SubResource("BoxShape3D_jao04")
