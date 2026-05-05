@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctknt0r1kawtg"]
+
+[ext_resource type="PackedScene" uid="uid://djmvmn27i138p" path="res://Objects/life_tube.gltf" id="1_wx6qf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d7ege"]
+
+[node name="tube" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="blockbench_export" parent="StaticBody3D" instance=ExtResource("1_wx6qf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1.09754, 0, 0, 0, 1, 0, 0, 0, 5.55056, -0.190486, 0.511079, 0.44586)
+shape = SubResource("BoxShape3D_d7ege")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.79751e-08, 0, 6.61641, 0, 1, 0, -1.09754, 0, -2.89212e-07, 0.0567793, 0.511079, 0.00777185)
+shape = SubResource("BoxShape3D_d7ege")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.79751e-08, 0, 3.71906, 0, 1, 0, -1.09754, 0, -1.62565e-07, -1.35658, 0.51108, 2.68106)
+shape = SubResource("BoxShape3D_d7ege")
