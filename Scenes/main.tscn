@@ -42,7 +42,7 @@ scale_curve = SubResource("CurveTexture_bjlqf")
 
 [sub_resource type="Gradient" id="Gradient_pvoqv"]
 offsets = PackedFloat32Array(0, 0.678571)
-colors = PackedColorArray(1, 1, 1, 0.431373, 0.295895, 0.295855, 0.295865, 0)
+colors = PackedColorArray(0, 0, 0, 1, 0.295895, 0.295855, 0.295865, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_xrqhj"]
 gradient = SubResource("Gradient_pvoqv")
@@ -53,6 +53,7 @@ fill_to = Vector2(0, 0)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nirrr"]
 transparency = 1
 shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
 albedo_texture = SubResource("GradientTexture2D_xrqhj")
 
 [sub_resource type="QuadMesh" id="QuadMesh_jao5m"]
@@ -104,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23649, 0)
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1013, -0.0553005)
 gi_mode = 0
-amount = 1000
+amount = 2000
 lifetime = 10.0
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_uiro6")
