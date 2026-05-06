@@ -14,6 +14,25 @@ material = SubResource("StandardMaterial3D_u71gv")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sm64k"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eqim8"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.5, 0.5, 0.5, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="Sky" id="Sky_fplhp"]
+sky_material = SubResource("ProceduralSkyMaterial_eqim8")
+
+[sub_resource type="Environment" id="Environment_653cq"]
+background_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_fplhp")
+tonemap_mode = 2
+glow_enabled = true
+fog_light_color = Color(1.92523e-07, 0.276399, 0.306327, 1)
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(4.81307e-07, 0.772254, 0.725785, 1)
+
 [sub_resource type="Curve" id="Curve_focnx"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.95, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -34,7 +53,7 @@ curve = SubResource("Curve_ci2kc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fq1y5"]
 emission_shape = 1
-emission_sphere_radius = 20.0
+emission_sphere_radius = 40.0
 gravity = Vector3(0, -0.1, 0)
 tangential_accel_min = 1.0
 tangential_accel_max = 1.0
@@ -50,25 +69,6 @@ script = SubResource("GDScript_phm3a")
 [sub_resource type="QuadMesh" id="QuadMesh_3nape"]
 material = SubResource("StandardMaterial3D_xxu83")
 size = Vector2(0.5, 0.5)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eqim8"]
-sky_top_color = Color(0, 0, 0, 1)
-sky_horizon_color = Color(0.5, 0.5, 0.5, 1)
-ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0.5, 0.5, 0.5, 1)
-
-[sub_resource type="Sky" id="Sky_fplhp"]
-sky_material = SubResource("ProceduralSkyMaterial_eqim8")
-
-[sub_resource type="Environment" id="Environment_653cq"]
-background_mode = 2
-background_energy_multiplier = 0.0
-sky = SubResource("Sky_fplhp")
-tonemap_mode = 2
-glow_enabled = true
-fog_light_color = Color(1.92523e-07, 0.276399, 0.306327, 1)
-volumetric_fog_enabled = true
-volumetric_fog_albedo = Color(4.81307e-07, 0.772254, 0.725785, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -90,19 +90,20 @@ shape = SubResource("WorldBoundaryShape3D_sm64k")
 [node name="Player" parent="." instance=ExtResource("2_pqln0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23649, 0)
 
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1013, -0.0553005)
-gi_mode = 0
-amount = 5000
-lifetime = 5.0
-preprocess = 4.0
-transform_align = 3
-trail_lifetime = 3.1
-process_material = SubResource("ParticleProcessMaterial_fq1y5")
-draw_pass_1 = SubResource("QuadMesh_3nape")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_653cq")
 
 [node name="tube" parent="." instance=ExtResource("3_a4efa")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 14.976, 0, 20.052)
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8293, 3.33779, 17.6176)
+gi_mode = 0
+amount = 100000
+lifetime = 5.0
+preprocess = 20.0
+visibility_aabb = AABB(-204.13, -4, -214.787, 408.259, 8, 429.575)
+transform_align = 3
+trail_lifetime = 3.1
+process_material = SubResource("ParticleProcessMaterial_fq1y5")
+draw_pass_1 = SubResource("QuadMesh_3nape")
